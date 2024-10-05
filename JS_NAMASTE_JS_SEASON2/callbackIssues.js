@@ -5,6 +5,9 @@
 // },5000)
 
 /*
+
+//callbacks are way to handling async operation in JS, asynchronous programming in js exist because callback exist...
+ 
 Two issues while using callbacks
 
 1 - Callback hell
@@ -25,3 +28,7 @@ api.createOrder(cart, function () {
     });
   });
 });
+
+//2 - Inversion of control
+
+
