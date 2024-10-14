@@ -130,21 +130,33 @@ async function handlePromise() {
 
   const data = await fetch(API_URL);
   const jsonValue = await data.json();
-  // fetch().then(res=>res.json().then(res=>consolelog())) // this is same working as above (line 130 and 131)
+  // fetch().then(res=>res.json().then(res=>consolelog())) // this is same working as above (line 131 and 132)
   console.log(jsonValue);
 
 }
 handlePromise();
 */
-////////////
+///////////////////////
+//Error handling in async await
+// here we not using .catch() like normal promises, we are using try catch here
+// const API_URL = "https://api.github.com/users/vaibhavgaje";
+const API_URL = "https://invalidarandomurl";
+// error handling first way
+// async function handlePromise() {
+//   try {
+//     const data = await fetch(API_URL);
+//     const jsonValue = await data.json();
+//     console.log(jsonValue);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+// handlePromise();
 
-const API_URL = "https://api.github.com/users/vaibhavgaje";
+// error handling second way
 async function handlePromise() {
-  
-  const data = await fetch(API_URL);
-  const jsonValue = await data.json();
-  // fetch().then(res=>res.json().then(res=>consolelog())) // this is same working as above (line 130 and 131)
-  console.log(jsonValue);
-
+    const data = await fetch(API_URL);
+    const jsonValue = await data.json();
+    console.log(jsonValue);
 }
-handlePromise();
+handlePromise().catch((err) => console.log(err));
