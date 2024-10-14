@@ -11,11 +11,10 @@ case p2 take 1 sec and after 1 second it got error, menas after one second you c
 means it will not wait for p1 and p3. here if p1 pass in 1 sec and p2 fail after 2 sec, here also promise.all() throw error but after 2sec.
 
 2. Promise.allSetteled(): its work same as Promise.all() for success case, means all promise api return success. But it will work differently in 
-rejected case. Take same failure exam like p2 is rejected then Promise.allSetteled will wait for all promisses to settled. And after 3 sec it will 
-give you an array of result like : [val1, err2, val3] here assuming p1 and p3 success and p2 rejected.
+rejected case. Take same failure exam like p2 is rejected then Promise.all Setteled will wait for all promisses to settled. And after 3 sec it will give you an array of result like : [val1, err2, val3] here assuming p1 and p3 success and p2 rejected. Note :
+Promise.allSettled will give you an array of objects, you can see in below practical example.
 
-3. Promise.race(): taking same example like Promise.race([p1, p2, p3]) and taking time 3sec, 1sec and 2 sec respectively. Here as soon as any one of them promise
-resolved that is in 1 second , then it will give me the result of the val2 like (val2) {note: here val2 is not array its valus so round bracket used.}
+3. Promise.race(): taking same example like Promise.race([p1, p2, p3]) and taking time 3sec, 1sec and 2 sec respectively. Here as soon as any one of them promise settled that is in 1 second , then it will give me the result of the val2 like (val2) {note: here val2 is not array its valus so round bracket used.}
 Basically it will give value of first settled promise.
 Assume if p1 take 3s p2 take 5s and p3 take 2s, here (val3) will be the result as p3 promise settled first.
 what if p3 promise failed which take less no to settled rather than another, in this case (ERROR) will be thrown from p3 after 2 sec. 
@@ -27,6 +26,57 @@ for next promises for success, if p3 get success in 2 sec it will return (val3) 
 promise means for p1 and when it get success it will return (val1) after 3 sec. 
 What if everthing means all promisses failed means all api failed, then retrtun result will be the Aggregate Error and this Aggreagte Error 
 will be an array of an all the errors like [err1, err2, err3] here after 3 sec we will get this array.
-*/
+it also we can called as seeking for first success.
 
+COMMON MAIN NOTE:: when u say promise settled means got result and settled have two state and it has different lingos like below
+                  Settled ------> got the result
+                     |
+                _____|____
+                |         |
+              resolve    reject
+              success    failure
+              fulfield   rejected  
+
+*/
+//here we can use api call using fetch but to control on time we r using dummy promises below
+const p1 = new Promise((resolve, reject) =>{
+    // setTimeout(() => resolve("p1 success"),3000);
+    setTimeout(() => reject("p1 failed"),3000);
+})
+const p2 = new Promise((resolve, reject) =>{
+    // setTimeout(() => resolve("p2 success"),1000);
+    // setTimeout(() => resolve("p2 success"),5000); //for promise.race and promise.any checking
+    setTimeout(() => reject("p2 failed"),1000);
+})
+const p3 = new Promise((resolve, reject) =>{
+    // setTimeout(() => resolve("p3 success"),2000);
+    setTimeout(() => reject("p3 failed"),2000);
+})
+
+// Promise.all([p1, p2 ,p3]).then(res => {
+//     console.log(res);
+// }).catch((err)=>{
+//     console.error(err);
+// });
+
+// Promise.allSettled([p1, p2 ,p3]).then(res => {
+//     console.log(res);
+// }).catch((err)=>{
+//     console.error(err);
+// });
+
+// Promise.race([p1, p2 ,p3]).then(res => {
+//     console.log(res);
+// }).catch((err)=>{
+//     console.error(err);
+// });
+
+Promise.any([p1, p2 ,p3])
+.then(res => {
+    console.log(res);
+})
+.catch((err)=>{
+    console.error(err);
+    console.log(err.errors);
+});
 
