@@ -119,14 +119,32 @@ async function handlePromise() {
 handlePromise();
 */
 //////////////////////////////////////
+/*
+//real worl example of async await
+const API_URL = "https://api.github.com/users/vaibhavgaje";
+async function handlePromise() {
+  //fetch is function given to us by browser not JS
+  //fetch() function is basically a promise when this promise resolved it gives a response object(e.g. fetch()=>Response ), this object has body which is readable stream,
+  // and suppose you have to convert this readable stream to json you need to do like something Response.json() {e.g. fetch()=>Response.json()},
+  // and this .json() is again a promise, and when this json() promise resolved it gives a jsonValue ( e.g. fetch() => Response.json => jsonValue )
 
+  const data = await fetch(API_URL);
+  const jsonValue = await data.json();
+  // fetch().then(res=>res.json().then(res=>consolelog())) // this is same working as above (line 130 and 131)
+  console.log(jsonValue);
 
+}
+handlePromise();
+*/
+////////////
 
+const API_URL = "https://api.github.com/users/vaibhavgaje";
+async function handlePromise() {
+  
+  const data = await fetch(API_URL);
+  const jsonValue = await data.json();
+  // fetch().then(res=>res.json().then(res=>consolelog())) // this is same working as above (line 130 and 131)
+  console.log(jsonValue);
 
-
-
-
-
-
-
-
+}
+handlePromise();
