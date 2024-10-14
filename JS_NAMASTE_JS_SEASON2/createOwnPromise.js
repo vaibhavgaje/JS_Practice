@@ -16,7 +16,7 @@ promise
 
 function createOrder(cart) {
   const pr = new Promise(function (resolve, reject) {
-    //Here promise is constructor to create aur own promise, it has function
+    //Here promise is constructor to create our own promise, it has function
     // having to functions resolves and reject which are given by javascript to build promises.
 
     //createOrder

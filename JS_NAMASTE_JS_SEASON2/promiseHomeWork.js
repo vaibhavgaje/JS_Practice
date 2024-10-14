@@ -38,7 +38,15 @@ createOrder(cart)
   })
   .catch(function(err){
     console.log(err.message);
-  })
+  });
+
+// createOrder(cart)
+//     .then(orderId => orderId)
+//     .then(orderId => proceedToPayment(orderId))
+//     .then(orderStatus => showOrderSummery(orderStatus))
+//     .then(orderHistory => updateWallet(orderHistory))
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err.message))
 
 function createOrder(cart) {
   return new Promise(function (resolve, reject) {
