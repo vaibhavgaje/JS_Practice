@@ -55,6 +55,7 @@ handlePromise();
 ///////////////////////////
 //diff between handling promise using async await and normal older way
 //1. Old Way>
+/*
 const p = new Promise((resolve, reject) => {
   setTimeout(()=>{
     
@@ -63,16 +64,61 @@ const p = new Promise((resolve, reject) => {
 });
 
 function getData(){
+  //JS Engine will not wait for prom,ise to be resolved
   p.then((res)=>console.log(res));
   console.log("Namaste JS");
 }
 getData();
+*/
+////////////////////
+/*
+//2. New Way(async await)>
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(()=>{
+    
+  resolve("Promise Resolved Value..!");
+  }, 40000); 
+});
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(()=>{
+    
+  resolve("Promise Resolved Value..!");
+  }, 20000); 
+});
 
 // async function handlePromise() {
-//   const val = await p; 
+//   console.log("Hello world");
+//   //JS Engine was waiting for promise to resolved
+//   const val = await p1; 
+//   console.log("Namaste Javascript");
 //   console.log(val);
+
+//   // const val2 = await p1; 
+//   // console.log("Namaste Javascript 2");
+//   // console.log(val2);
+
+//   const val2 = await p2; 
+//   console.log("Namaste Javascript 2");
+//   console.log(val2);
 // }
-// handlePromise();
+async function handlePromise() {
+  console.log("Hello world");
+  //JS Engine suspend function execution of this promise and pull out from call stack and when the promise resolved it come back into call stack and execute it.
+  const val = await p2; 
+  console.log("Namaste Javascript");
+  console.log(val);
+
+  // const val2 = await p1; 
+  // console.log("Namaste Javascript 2");
+  // console.log(val2);
+
+  const val2 = await p1; 
+  console.log("Namaste Javascript 2");
+  console.log(val2);
+}
+handlePromise();
+*/
+//////////////////////////////////////
 
 
 
